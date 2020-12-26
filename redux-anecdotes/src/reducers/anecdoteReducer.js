@@ -42,5 +42,12 @@ const vote = (id) => {
   }
 }
 
+const create = (content) => {
+  return {
+    type: 'CREATE',
+    data: { content }
+  }
+}
+
 export default reducer
-export { vote }
+export { vote, create }
