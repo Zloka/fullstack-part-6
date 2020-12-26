@@ -8,7 +8,9 @@ const counterReducer = (state = initialState, action) => {
   console.log(action)
   switch (action.type) {
     case 'GOOD':
-      return state
+      const newState = { ...state }
+      newState.good = newState.good + 1
+      return newState
     case 'OK':
       return state
     case 'BAD':
