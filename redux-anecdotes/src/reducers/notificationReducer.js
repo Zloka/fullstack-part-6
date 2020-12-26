@@ -12,19 +12,20 @@ const reducer = (state = initialState, action) => {
   return state
 }
 
-const setNotification = (notification) => {
-  return {
-    type: 'SET_NOTIFICATION',
-    data: { notification }
-  }
-}
-
-const removeNotification = () => {
-  return {
-    type: 'SET_NOTIFICATION',
-    data: { notification: null }
+const setNotification = (notification, time) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      data: { notification }
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'SET_NOTIFICATION',
+        data: { notification: null }
+      })
+    }, time * 1000)
   }
 }
 
 export default reducer
-export { setNotification, removeNotification }
+export { setNotification }
