@@ -27,10 +27,13 @@ const vote = (id) => {
   }
 }
 
-const create = (anecdoteObj) => {
-  return {
-    type: 'CREATE',
-    data: anecdoteObj
+const create = (content) => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.create({ content, votes: 0})
+    dispatch({
+      type: 'CREATE',
+      data: newAnecdote
+    })
   }
 }
 
