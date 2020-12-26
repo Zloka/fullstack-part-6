@@ -3,8 +3,15 @@ const initialState = null
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
-      const { notification } = action.data
-      return notification
+      const { notification, timer } = action.data
+      if (notification === null) {
+        return null
+      } else {
+        if (state !== null) {
+          clearTimeout(state.timer)
+        }
+        return { notification, timer }
+      }
     default:
       break
   }
@@ -14,16 +21,17 @@ const reducer = (state = initialState, action) => {
 
 const setNotification = (notification, time) => {
   return async dispatch => {
-    dispatch({
-      type: 'SET_NOTIFICATION',
-      data: { notification }
-    })
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       dispatch({
         type: 'SET_NOTIFICATION',
         data: { notification: null }
       })
     }, time * 1000)
+
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      data: { notification, timer }
+    })
   }
 }
 
